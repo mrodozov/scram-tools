@@ -1,6 +1,6 @@
 #!/bin/bash -x
 
-${toolfolder} = ${1}
+toolfolder=$1
 
 cat << \EOF_TOOLFILE > ${toolfolder}/cmsswdata.xml
   <tool name="cmsswdata" version="%v">
