@@ -24,4 +24,4 @@ export BOOST_IOSTREAMS_LIB=`getLibName iostream`
 export BOOST_MPI_LIB=`getLibName mpi`
 export PYTHONV=$(echo $PYTHON_VERSION | cut -f1,2 -d.)
 
-perl -p -i -e 's|\@([^@]*)\@|$ENV{$1}|g' ${toolfolder}/*.xml
+perl -p -i -e 's|\@([^@]*)\@|$ENV{$1}|g' ${toolfolder}/boost*.xml
