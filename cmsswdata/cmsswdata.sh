@@ -14,6 +14,8 @@ cat << \EOF_TOOLFILE > ${toolfolder}/searchpath.xml
     <runtime name="CMSSW_DATA_PATH" value="$CMSSWDATA_BASE" type="path"/>
 EOF_TOOLFILE
 
+echo $CMSSWDATA_PKGREQUIRED
+
 for toolbase in `echo ${CMSSWDATA_PKGREQUIRED} | tr ' ' '\n' | grep 'cms/data-'` ; do
   toolver=`basename $toolbase`
   pack=`echo $toolbase | cut -d/ -f2 | sed 's|data-||;s|-|/|'`
@@ -22,6 +24,6 @@ for toolbase in `echo ${CMSSWDATA_PKGREQUIRED} | tr ' ' '\n' | grep 'cms/data-'`
 done
 
 cat ${toolfolder}/searchpath.xml >> ${toolfolder}/cmsswdata.xml
-echo "  </tool>"      >> ${toolroot}/scram.d/cmsswdata.xml
+echo "  </tool>"      >> ${toolroot}/cmsswdata.xml
 rm -f ${toolfolder}/searchpath.xml
 
