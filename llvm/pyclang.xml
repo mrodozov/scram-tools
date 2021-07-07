@@ -1,0 +1,6 @@
+<tool name="pyclang" version="@TOOL_VERSION@">
+  <client>
+    <environment name="PYCLANG_BASE" default="@TOOL_ROOT@"/>
+  </client>
+  <use name="python"/>
+</tool>
