@@ -25,7 +25,7 @@ export COMPILER_VERSION_MINOR=$(echo $COMPILER_VERSION | cut -d'.' -f2)
 # *** USE @VARIABLE@ plus associated environment variable to customize. ***
 # DO NOT DUPLICATE the toolfile template.
 
-cat << \EOF_TOOLFILE >${TOOLFILES_INSTALL_DIR}/tools/selected/gcc-cxxcompiler.xml
+cat << \EOF_TOOLFILE >${SCRAM_TOOL_SOURCE_DIR}/gcc-cxxcompiler.xml
   <tool name="gcc-cxxcompiler" version="@TOOL_VERSION@" type="compiler">
 <client>
       <environment name="GCC_CXXCOMPILER_BASE" default="@TOOL_ROOT@"/>
@@ -55,10 +55,10 @@ EOF_TOOLFILE
 if [[ $(arch) == x86_64 ]] ; then
 for vv in ${PKG_VECTORIZATION} ; do
   uvv=$(echo $vv | tr [a-z-] [A-Z_] | tr '.' '_')
-  echo "    <flags CXXFLAGS_TARGETS_${uvv}=\"${vv}\"/>" >> ${TOOLFILES_INSTALL_DIR}/tools/selected/gcc-cxxcompiler.xml
+  echo "    <flags CXXFLAGS_TARGETS_${uvv}=\"${vv}\"/>" >> ${SCRAM_TOOL_SOURCE_DIR}/gcc-cxxcompiler.xml
 done
 fi
-cat << \EOF_TOOLFILE >>${TOOLFILES_INSTALL_DIR}/tools/selected/gcc-cxxcompiler.xml
+cat << \EOF_TOOLFILE >>${SCRAM_TOOL_SOURCE_DIR}/gcc-cxxcompiler.xml
     <flags LDFLAGS="@OS_LDFLAGS@ @ARCH_LDFLAGS@ @COMPILER_LDFLAGS@"/>
     <flags CXXSHAREDFLAGS="@OS_SHAREDFLAGS@ @ARCH_SHAREDFLAGS@ @COMPILER_SHAREDFLAGS@"/>
     <flags LD_UNIT="@OS_LD_UNIT@ @ARCH_LD_UNIT@ @COMPILER_LD_UNIT@"/>
@@ -109,7 +109,6 @@ COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS -fno-math-errno --param vect-max-version-f
 COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS -Xassembler --compress-debug-sections"
 COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS $COMP_ARCH_SPECIFIC_FLAGS"
 
-XML_FILES_FOR_TOOL="${TOOLFILES_INSTALL_DIR}/tools/selected/gcc-cxxcompiler.xml ${XML_FILES_FOR_TOOL}"
 
 export COMPILER_CXXFLAGS
 
