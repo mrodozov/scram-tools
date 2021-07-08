@@ -1,11 +1,11 @@
 #!/bin/bash -x
 
-TOOL_ROOT=$1
-TOOL_VERSION=$2
+export TOOL_ROOT=$1
+export TOOL_VERSION=$2
 TOOLFILES_INSTALL_DIR=$3
 TOOL_NAME=$4
-PYTHONV=$5
-PYTHONV3=$6
+export PYTHONV=$5
+export PYTHONV3=$6
 SCRAM_TOOLS_GETSCRIPT=`realpath ${0}`
 
 XML_FILES_FOR_TOOL=""
@@ -20,6 +20,7 @@ for xml in $(find $(dirname ${SCRAM_TOOLS_GETSCRIPT})/${TOOL_NAME} -type f -name
 done
 tool_script=$(dirname ${SCRAM_TOOLS_GETSCRIPT})/${TOOL_NAME}/$(echo ${TOOL_NAME} | tr '[A-Z]' '[a-z]').sh
 if [ -f $tool_script ]; then source $tool_script; fi
+
 #if [[ $TOOL_NAME==gcc ]] ; then echo $COMPILER_CXXFLAGS; fi # to check the export # keep this for reminder the sourcing is wworking
 for xml_for_tool in $XML_FILES_FOR_TOOL ; do perl -p -i -e 's|\@([^@]*)\@|$ENV{$1}|g' $xml_for_tool ; done
 #perl -p -i -e 's|\@([^@]*)\@|$ENV{$1}|g' ${TOOLFILES_INSTALL_DIR}/tools/selected/${TOOL_NAME}*.xml
