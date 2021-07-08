@@ -2,7 +2,7 @@
   <info url="http://https://facebook.github.io/zstd"/>
   <lib name="zstd"/>
   <client>
-    <environment name="ZSTD_BASE" default="@TOOL_VERSION@"/>
+    <environment name="ZSTD_BASE" default="@TOOL_ROOT@"/>
     <environment name="LIBDIR" default="$ZSTD_BASE/lib"/>
     <environment name="INCLUDE" default="$ZSTD_BASE/include"/>
   </client>
