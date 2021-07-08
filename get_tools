@@ -20,7 +20,5 @@ for xml in $(find $(dirname ${SCRAM_TOOLS_GETSCRIPT})/${TOOL_NAME} -type f -name
 done
 tool_script=$(dirname ${SCRAM_TOOLS_GETSCRIPT})/${TOOL_NAME}/$(echo ${TOOL_NAME} | tr '[A-Z]' '[a-z]').sh
 if [ -f $tool_script ]; then source $tool_script; fi
-
-#if [[ $TOOL_NAME==gcc ]] ; then echo $COMPILER_CXXFLAGS; fi # to check the export # keep this for reminder the sourcing is wworking
+#only exported variables may be used in such substitute
 for xml_for_tool in $XML_FILES_FOR_TOOL ; do perl -p -i -e 's|\@([^@]*)\@|$ENV{$1}|g' $xml_for_tool ; done
-#perl -p -i -e 's|\@([^@]*)\@|$ENV{$1}|g' ${TOOLFILES_INSTALL_DIR}/tools/selected/${TOOL_NAME}*.xml
