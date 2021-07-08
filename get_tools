@@ -18,4 +18,4 @@ done
 tool_script=$(dirname ${SCRAM_TOOLS_GETSCRIPT})/${TOOL_NAME}/$(echo ${TOOL_NAME} | tr '[A-Z]' '[a-z]').sh
 if [ -f $tool_script ]; then source $tool_script; fi
 if [[ $TOOL_NAME==gcc ]] ; then echo $COMPILER_CXXFLAGS; fi # to check the export
-perl -p -i -e 's|\@([^@]*)\@|$ENV{$1}|g' ${TOOLFILES_INSTALL_DIR}/tools/selected/*.xml
+perl -p -i -e "s|\@([^@]*)\@|$ENV{$1}|g" ${TOOLFILES_INSTALL_DIR}/tools/selected/*.xml
