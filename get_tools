@@ -7,7 +7,7 @@ TOOL_NAME=${4}
 PYTHONV=${5}
 PYTHONV3=${6}
 
-for xml in $(find `realpath ${0}`/${TOOL_NAME} -type f -name "*.xml") ; do
+for xml in $(find `dirname {0}`/${TOOL_NAME} -type f -name "*.xml") ; do
     bxml=$(basename $xml | tr '[A-Z]' '[a-z]')
     [ -f ${TOOLFILES_INSTALL_DIR}/tools/selected/$bxml ] && continue
     [ -f ${TOOLFILES_INSTALL_DIR}/tools/available/$bxml ] && continue
