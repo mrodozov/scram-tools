@@ -8,14 +8,18 @@ PYTHONV=$5
 PYTHONV3=$6
 SCRAM_TOOLS_GETSCRIPT=`realpath ${0}`
 
+#XML_FILES_FOR_TOOL=""
+
 for xml in $(find $(dirname ${SCRAM_TOOLS_GETSCRIPT})/${TOOL_NAME} -type f -name "*.xml") ; do
     bxml=$(basename $xml | tr '[A-Z]' '[a-z]')
     [ -f ${TOOLFILES_INSTALL_DIR}/tools/selected/$bxml ] && continue
     [ -f ${TOOLFILES_INSTALL_DIR}/tools/available/$bxml ] && continue
     cp $xml ${TOOLFILES_INSTALL_DIR}/tools/selected/${bxml}
+    XML_FILES_FOR_TOOL="${XML_FILES_FOR_TOOL} ${TOOLFILES_INSTALL_DIR}/tools/selected/${bxml}"
     echo "  Copied $bxml"
 done
 tool_script=$(dirname ${SCRAM_TOOLS_GETSCRIPT})/${TOOL_NAME}/$(echo ${TOOL_NAME} | tr '[A-Z]' '[a-z]').sh
 if [ -f $tool_script ]; then source $tool_script; fi
 #if [[ $TOOL_NAME==gcc ]] ; then echo $COMPILER_CXXFLAGS; fi # to check the export # keep this for reminder the sourcing is wworking
-perl -p -i -e 's|\@([^@]*)\@|$ENV{$1}|g' ${TOOLFILES_INSTALL_DIR}/tools/selected/*.xml
+for xml_for_tool in $XML_FILES_FOR_TOOL ; do perl -p -i -e 's|\@([^@]*)\@|$ENV{$1}|g' $xml_for_tool ; done
+#perl -p -i -e 's|\@([^@]*)\@|$ENV{$1}|g' ${TOOLFILES_INSTALL_DIR}/tools/selected/${TOOL_NAME}*.xml
