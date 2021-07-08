@@ -7,18 +7,17 @@ TOOL_NAME=$4
 export PYTHONV=$5
 export PYTHONV3=$6
 SCRAM_TOOLS_GETSCRIPT=`realpath ${0}`
+SCRAM_TOOL_SOURCE_DIR=$(dirname ${SCRAM_TOOLS_GETSCRIPT})/${TOOL_NAME}
 
-XML_FILES_FOR_TOOL=""
+tool_script=$(dirname ${SCRAM_TOOL_SOURCE_DIR}/$(echo ${TOOL_NAME} | tr '[A-Z]' '[a-z]').sh
+if [ -f $tool_script ]; then source $tool_script; fi
 
-for xml in $(find $(dirname ${SCRAM_TOOLS_GETSCRIPT})/${TOOL_NAME} -type f -name "*.xml") ; do
+for xml in $(find $SCRAM_TOOL_SOURCE_DIR -type f -name "*.xml") ; do
     bxml=$(basename $xml | tr '[A-Z]' '[a-z]')
     [ -f ${TOOLFILES_INSTALL_DIR}/tools/selected/$bxml ] && continue
     [ -f ${TOOLFILES_INSTALL_DIR}/tools/available/$bxml ] && continue
     cp $xml ${TOOLFILES_INSTALL_DIR}/tools/selected/${bxml}
-    XML_FILES_FOR_TOOL="${XML_FILES_FOR_TOOL} ${TOOLFILES_INSTALL_DIR}/tools/selected/${bxml}"
-    echo "  Copied $bxml"
+    perl -p -i -e 's|\@([^@]*)\@|$ENV{$1}|g' ${TOOLFILES_INSTALL_DIR}/tools/selected/${bxml}
+    echo "  Copied $bxml"    
 done
-tool_script=$(dirname ${SCRAM_TOOLS_GETSCRIPT})/${TOOL_NAME}/$(echo ${TOOL_NAME} | tr '[A-Z]' '[a-z]').sh
-if [ -f $tool_script ]; then source $tool_script; fi
-#only exported variables may be used in such substitute
-for xml_for_tool in $XML_FILES_FOR_TOOL ; do perl -p -i -e 's|\@([^@]*)\@|$ENV{$1}|g' $xml_for_tool ; done
+
