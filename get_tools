@@ -17,4 +17,4 @@ for xml in $(find $(dirname ${SCRAM_TOOLS_GETSCRIPT})/${TOOL_NAME} -type f -name
 done
 tool_script=$(dirname ${SCRAM_TOOLS_GETSCRIPT})/${TOOL_NAME}/$(echo ${TOOL_NAME} | tr '[A-Z]' '[a-z]').sh
 if [ -f $tool_script ]; then (source $tool_script); fi
-perl -p -i -e 's|\@([^@]*)\@|$ENV{$1}|g' ${TOOLFILES_INSTALL_DIR}/tools/selected/*.xml
+$(perl -p -i -e 's|\@([^@]*)\@|$ENV{$1}|g' ${TOOLFILES_INSTALL_DIR}/tools/selected/*.xml)
