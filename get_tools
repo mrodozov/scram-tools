@@ -1,0 +1,19 @@
+#!/bin/bash -x
+
+TOOL_ROOT=${1}
+TOOL_VERSION=${2}
+TOOLFILES_INSTALL_DIR=${3}
+TOOL_NAME=${4}
+PYTHONV=${5}
+PYTHONV3=${6}
+
+for xml in $(find `realpath ${0}`/${TOOL_NAME} -type f -name "*.xml") ; do
+    bxml=$(basename $xml | tr '[A-Z]' '[a-z]')
+    [ -f ${TOOLFILES_INSTALL_DIR}/tools/selected/$bxml ] && continue
+    [ -f ${TOOLFILES_INSTALL_DIR}/tools/available/$bxml ] && continue
+    cp $xml ${TOOLFILES_INSTALL_DIR}/tools/selected/${bxml}
+    echo "  Copied $bxml"
+done
+tool_script=`realpath ${0}`/${TOOL_NAME}/$(echo ${TOOL_NAME} | tr '[A-Z]' '[a-z]').sh
+if [ -f $tool_script ]; then (source $tool_script ${TOOLFILES_INSTALL_DIR}/tools/selected); fi
+perl -p -i -e 's|\@([^@]*)\@|$ENV{$1}|g' ${TOOLFILES_INSTALL_DIR}/tools/selected/*.xml

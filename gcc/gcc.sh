@@ -113,4 +113,4 @@ COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS $COMP_ARCH_SPECIFIC_FLAGS"
 
 export COMPILER_CXXFLAGS
 # General substitutions
-perl -p -i -e 's|\@([^@]*)\@|$ENV{$1}|g' ${toolfolder}/gcc*.xml
+#perl -p -i -e 's|\@([^@]*)\@|$ENV{$1}|g' ${toolfolder}/gcc*.xml
