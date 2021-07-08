@@ -15,6 +15,6 @@ for xml in $(find $(dirname ${SCRAM_TOOLS_GET_SCRIPT})/${TOOL_NAME} -type f -nam
     cp $xml ${TOOLFILES_INSTALL_DIR}/tools/selected/${bxml}
     echo "  Copied $bxml"
 done
-tool_script=$(dirname $SCRAM_TOOLS_GET_SCRIPT)/${TOOL_NAME}/$(echo ${TOOL_NAME} | tr '[A-Z]' '[a-z]').sh
-if [ -f $tool_script ]; then (source $tool_script ${TOOLFILES_INSTALL_DIR}/tools/selected); fi
+tool_script=$(dirname ${SCRAM_TOOLS_GET_SCRIPT})/${TOOL_NAME}/$(echo ${TOOL_NAME} | tr '[A-Z]' '[a-z]').sh
+if [ -f $tool_script ]; then (source $tool_script); fi
 perl -p -i -e 's|\@([^@]*)\@|$ENV{$1}|g' ${TOOLFILES_INSTALL_DIR}/tools/selected/*.xml
