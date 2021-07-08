@@ -9,7 +9,7 @@ export PYTHONV3=$6
 SCRAM_TOOLS_GETSCRIPT=`realpath ${0}`
 SCRAM_TOOL_SOURCE_DIR=$(dirname ${SCRAM_TOOLS_GETSCRIPT})/${TOOL_NAME}
 
-tool_script=$(dirname ${SCRAM_TOOL_SOURCE_DIR}/$(echo ${TOOL_NAME} | tr '[A-Z]' '[a-z]').sh
+tool_script=${SCRAM_TOOL_SOURCE_DIR}/$(echo ${TOOL_NAME} | tr '[A-Z]' '[a-z]').sh
 if [ -f $tool_script ]; then source $tool_script; fi
 
 for xml in $(find $SCRAM_TOOL_SOURCE_DIR -type f -name "*.xml") ; do
