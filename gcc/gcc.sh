@@ -1,6 +1,5 @@
 #!/bin/bash -x
 
-toolfolder=${1}
 
 if [ "X$GCC_ROOT" = X ]
 then
@@ -27,7 +26,7 @@ export COMPILER_VERSION_MINOR=$(echo $COMPILER_VERSION | cut -d'.' -f2)
 # *** USE @VARIABLE@ plus associated environment variable to customize. ***
 # DO NOT DUPLICATE the toolfile template.
 
-cat << \EOF_TOOLFILE >${toolfolder}/gcc-cxxcompiler.xml
+cat << \EOF_TOOLFILE >${TOOLFILES_INSTALL_DIR}/gcc-cxxcompiler.xml
   <tool name="gcc-cxxcompiler" version="@GCC_VERSION@" type="compiler">
 <client>
       <environment name="GCC_CXXCOMPILER_BASE" default="@GCC_ROOT@"/>
@@ -57,10 +56,10 @@ EOF_TOOLFILE
 if [[ $(arch) == x86_64 ]] ; then
 for vv in ${PKG_VECTORIZATION} ; do
   uvv=$(echo $vv | tr [a-z-] [A-Z_] | tr '.' '_')
-  echo "    <flags CXXFLAGS_TARGETS_${uvv}=\"${vv}\"/>" >> ${toolfolder}/gcc-cxxcompiler.xml
+  echo "    <flags CXXFLAGS_TARGETS_${uvv}=\"${vv}\"/>" >> ${TOOLFILES_INSTALL_DIR}/gcc-cxxcompiler.xml
 done
 fi
-cat << \EOF_TOOLFILE >>${toolfolder}/gcc-cxxcompiler.xml
+cat << \EOF_TOOLFILE >>${TOOLFILES_INSTALL_DIR}/gcc-cxxcompiler.xml
     <flags LDFLAGS="@OS_LDFLAGS@ @ARCH_LDFLAGS@ @COMPILER_LDFLAGS@"/>
     <flags CXXSHAREDFLAGS="@OS_SHAREDFLAGS@ @ARCH_SHAREDFLAGS@ @COMPILER_SHAREDFLAGS@"/>
     <flags LD_UNIT="@OS_LD_UNIT@ @ARCH_LD_UNIT@ @COMPILER_LD_UNIT@"/>
@@ -112,5 +111,4 @@ COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS -Xassembler --compress-debug-sections"
 COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS $COMP_ARCH_SPECIFIC_FLAGS"
 
 export COMPILER_CXXFLAGS
-# General substitutions
-#perl -p -i -e 's|\@([^@]*)\@|$ENV{$1}|g' ${toolfolder}/gcc*.xml
+
