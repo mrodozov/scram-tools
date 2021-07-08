@@ -8,7 +8,7 @@ PYTHONV=$5
 PYTHONV3=$6
 SCRAM_TOOLS_GETSCRIPT=`realpath ${0}`
 
-#XML_FILES_FOR_TOOL=""
+XML_FILES_FOR_TOOL=""
 
 for xml in $(find $(dirname ${SCRAM_TOOLS_GETSCRIPT})/${TOOL_NAME} -type f -name "*.xml") ; do
     bxml=$(basename $xml | tr '[A-Z]' '[a-z]')
