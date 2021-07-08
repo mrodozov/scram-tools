@@ -26,9 +26,9 @@ export COMPILER_VERSION_MINOR=$(echo $COMPILER_VERSION | cut -d'.' -f2)
 # DO NOT DUPLICATE the toolfile template.
 
 cat << \EOF_TOOLFILE >${TOOLFILES_INSTALL_DIR}/tools/selected/gcc-cxxcompiler.xml
-  <tool name="gcc-cxxcompiler" version="@GCC_VERSION@" type="compiler">
+  <tool name="gcc-cxxcompiler" version="@TOOL_VERSION@" type="compiler">
 <client>
-      <environment name="GCC_CXXCOMPILER_BASE" default="@GCC_ROOT@"/>
+      <environment name="GCC_CXXCOMPILER_BASE" default="@TOOL_ROOT@"/>
       <environment name="CXX" value="$GCC_CXXCOMPILER_BASE/bin/c++@COMPILER_NAME_SUFFIX@"/>
      </client>
     <flags CPPDEFINES="GNU_GCC _GNU_SOURCE @OS_CPPDEFINES@ @ARCH_CPPDEFINES@ @COMPILER_CPPDEFINES@"/>
