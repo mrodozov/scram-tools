@@ -109,7 +109,7 @@ COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS -fno-math-errno --param vect-max-version-f
 COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS -Xassembler --compress-debug-sections"
 COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS $COMP_ARCH_SPECIFIC_FLAGS"
 
-
+XML_FILES_FOR_TOOL="${TOOLFILES_INSTALL_DIR}/tools/selected/gcc-cxxcompiler.xml ${XML_FILES_FOR_TOOL}"
 
 export COMPILER_CXXFLAGS
 
