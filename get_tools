@@ -1,11 +1,11 @@
 #!/bin/bash -x
 
-TOOL_ROOT=${1}
-TOOL_VERSION=${2}
-TOOLFILES_INSTALL_DIR=${3}
-TOOL_NAME=${4}
-PYTHONV=${5}
-PYTHONV3=${6}
+TOOL_ROOT=$1
+TOOL_VERSION=$2
+TOOLFILES_INSTALL_DIR=$3
+TOOL_NAME=$4
+PYTHONV=$5
+PYTHONV3=$6
 SCRAM_TOOLS_GETSCRIPT=`realpath ${0}`
 
 for xml in $(find $(dirname ${SCRAM_TOOLS_GETSCRIPT})/${TOOL_NAME} -type f -name "*.xml") ; do
@@ -17,4 +17,4 @@ for xml in $(find $(dirname ${SCRAM_TOOLS_GETSCRIPT})/${TOOL_NAME} -type f -name
 done
 tool_script=$(dirname ${SCRAM_TOOLS_GETSCRIPT})/${TOOL_NAME}/$(echo ${TOOL_NAME} | tr '[A-Z]' '[a-z]').sh
 if [ -f $tool_script ]; then (source $tool_script); fi
-#perl -p -i -e 's|\@([^@]*)\@|$ENV{$1}|g' ${TOOLFILES_INSTALL_DIR}/tools/selected/*.xml
+perl -p -i -e 's|\@([^@]*)\@|$ENV{$1}|g' ${TOOLFILES_INSTALL_DIR}/tools/selected/*.xml
