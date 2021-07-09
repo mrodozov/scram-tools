@@ -6,14 +6,19 @@ TOOLFILES_INSTALL_DIR=$3
 TOOL_NAME=$4
 export PYTHONV=$5
 export PYTHONV3=$6
-SCRAM_TOOLS_GETSCRIPT=`realpath ${0}`
-export SCRAM_TOOL_SOURCE_DIR=$(dirname ${SCRAM_TOOLS_GETSCRIPT}/)../tools/${TOOL_NAME}
+SCRAM_TOOLS_GETSCRIPT_PATH=`realpath ${0}`
+SCRIPT_DIR=$(dirname ${SCRAM_TOOLS_GETSCRIPT_PATH}/)
+SCRAM_TOOLS_ROOT_DIR=`realpath ${SCRIPT_DIR}/..`
+SCRAM_TOOLS_TOOLS_DIR=${SCRAM_TOOLS_ROOT_DIR}/tools
+export SCRAM_TOOLS_BIN_DIR=${SCRAM_TOOLS_ROOT_DIR}/bin
+export SCRAM_TOOL_SOURCE_DIR=${SCRAM_TOOLS_TOOLS_DIR}/${TOOL_NAME}
 
+if [ -d $SCRAM_TOOL_SOURCE_DIR ] ; then
 tool_script=${SCRAM_TOOL_SOURCE_DIR}/env.sh
 if [ -f $tool_script ]; then source $tool_script; fi
 
 for xml in $(find $SCRAM_TOOL_SOURCE_DIR -type f -name "*.xml") ; do
-    bxml=$(basename $xml | tr '[A-Z]' '[a-z]')
+    bxml=$(basename $xml)
     [ -f ${TOOLFILES_INSTALL_DIR}/tools/selected/$bxml ] && continue
     [ -f ${TOOLFILES_INSTALL_DIR}/tools/available/$bxml ] && continue
     cp $xml ${TOOLFILES_INSTALL_DIR}/tools/selected/${bxml}
@@ -21,3 +26,4 @@ for xml in $(find $SCRAM_TOOL_SOURCE_DIR -type f -name "*.xml") ; do
     echo "  Copied $bxml"
 done
 
+fi
