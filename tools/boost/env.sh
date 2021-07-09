@@ -1,7 +1,4 @@
 #!/bin/bash -ex
-
-#source $SCRAM_TOOLS_BIN_DIR/python_env.sh
-
 PY_VER=`ls ${TOOL_ROOT}/lib | grep boost-python | tr -d '.' | tr '-' ' ' | awk '{print $2}'`
 
 case $(uname) in Darwin ) so=dylib ;; * ) so=so ;; esac
