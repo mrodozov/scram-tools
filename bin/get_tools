@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash -e
 
 export TOOL_ROOT=$1
 export TOOL_VERSION=$2
@@ -7,9 +7,9 @@ TOOL_NAME=$4
 export PYTHONV=$5
 export PYTHONV3=$6
 SCRAM_TOOLS_GETSCRIPT=`realpath ${0}`
-SCRAM_TOOL_SOURCE_DIR=$(dirname ${SCRAM_TOOLS_GETSCRIPT})/${TOOL_NAME}
+export SCRAM_TOOL_SOURCE_DIR=$(dirname ${SCRAM_TOOLS_GETSCRIPT}/)../tools/${TOOL_NAME}
 
-tool_script=${SCRAM_TOOL_SOURCE_DIR}/$(echo ${TOOL_NAME} | tr '[A-Z]' '[a-z]').sh
+tool_script=${SCRAM_TOOL_SOURCE_DIR}/env.sh
 if [ -f $tool_script ]; then source $tool_script; fi
 
 for xml in $(find $SCRAM_TOOL_SOURCE_DIR -type f -name "*.xml") ; do
@@ -18,6 +18,6 @@ for xml in $(find $SCRAM_TOOL_SOURCE_DIR -type f -name "*.xml") ; do
     [ -f ${TOOLFILES_INSTALL_DIR}/tools/available/$bxml ] && continue
     cp $xml ${TOOLFILES_INSTALL_DIR}/tools/selected/${bxml}
     perl -p -i -e 's|\@([^@]*)\@|$ENV{$1}|g' ${TOOLFILES_INSTALL_DIR}/tools/selected/${bxml}
-    echo "  Copied $bxml"    
+    echo "  Copied $bxml"
 done
 
