@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -ex
 
 export TOOL_ROOT=$1
 export TOOL_VERSION=$2
