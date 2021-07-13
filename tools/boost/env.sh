@@ -4,7 +4,6 @@ case $(uname) in Darwin ) so=dylib ;; * ) so=so ;; esac
 getLibName()
 {
   libname=`find ${TOOL_ROOT}/lib -name "libboost_$1.$so" -follow -exec basename {} \;`
-  if [ -z $libname ] ; then echo "Can't find boost lib for $1"; exit 0 ; fi
   echo $libname | sed -e 's|[.][^-]*$||;s|^lib||'
 }
 PYLIB=`ls ${TOOL_ROOT}/lib | grep boost_python | head -1`;PYLIB=${PYLIB%\.${so}};PYLIB=${PYLIB#lib}
