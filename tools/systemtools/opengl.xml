@@ -2,5 +2,4 @@
   <lib name="GL"/>
   <lib name="GLU"/>
   <use name="x11"/>
-  <environment name="ORACLE_ADMINDIR" default="@ORACLE_ENV_ROOT@/etc"/>
 </tool>
