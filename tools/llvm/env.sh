@@ -1,4 +1,5 @@
 #!/bin/bash -e
 
-export G77_ROOT=`which gcc` || exit 1
+GCC_PATH=`which gcc` || exit 1
+export G77_ROOT=`echo $GCC_PATH | sed -e 's|/bin/gcc||'`
 
