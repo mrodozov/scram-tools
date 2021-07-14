@@ -55,7 +55,7 @@ EOF_TOOLFILE
 if [[ $(arch) == x86_64 ]] ; then
 for vv in ${PKG_VECTORIZATION} ; do
   uvv=$(echo $vv | tr [a-z-] [A-Z_] | tr '.' '_')
-  echo "    <flags CXXFLAGS_TARGETS_${uvv}=\"${vv}\"/>" >> ${SCRAM_TOOL_SOURCE_DIR}/gcc-cxxcompiler.xml
+  echo "    <flags CXXFLAGS_TARGETS_${uvv}=\"$(${CMSDIST_DIR}/vectorization/cmsdist_packages.py $vv)\"/>" >> ${SCRAM_TOOL_SOURCE_DIR}/gcc-cxxcompiler.xml
 done
 fi
 cat << \EOF_TOOLFILE >>${SCRAM_TOOL_SOURCE_DIR}/gcc-cxxcompiler.xml
