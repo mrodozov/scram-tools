@@ -25,6 +25,12 @@ export COMPILER_VERSION_MINOR=$(echo $COMPILER_VERSION | cut -d'.' -f2)
 # *** USE @VARIABLE@ plus associated environment variable to customize. ***
 # DO NOT DUPLICATE the toolfile template.
 
+# if the architecture is ppc64le, search the CMSDIST_DIR for ppc64 compilation flags
+PPC_COMP_FLAGS=""
+if [[ $(arch) == ppc64le ]] ; then
+PPC_COMP_FLAGS=`cat ${CMSDIST_DIR}/compilation_flags.file | grep "define ppc64le_build_flags" | cut -d" " -f3-`
+fi
+
 cat << \EOF_TOOLFILE >${SCRAM_TOOL_SOURCE_DIR}/gcc-cxxcompiler.xml
   <tool name="gcc-cxxcompiler" version="@TOOL_VERSION@" type="compiler">
 <client>
@@ -107,7 +113,7 @@ COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS -Werror=array-bounds -Werror=format-contai
 COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS -fvisibility-inlines-hidden"
 COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS -fno-math-errno --param vect-max-version-for-alias-checks=50"
 COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS -Xassembler --compress-debug-sections"
-COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS $COMP_ARCH_SPECIFIC_FLAGS"
+COMPILER_CXXFLAGS="$COMPILER_CXXFLAGS $COMP_ARCH_SPECIFIC_FLAGS $PPC_COMP_FLAGS"
 
 
 export COMPILER_CXXFLAGS
